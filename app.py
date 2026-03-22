@@ -204,7 +204,23 @@ HTML = """<!DOCTYPE html>
 
   /* ── HERO ── */
   .hero{position:relative;overflow:hidden;padding:90px 5% 70px;min-height:auto;display:flex;align-items:center;}
-  .hero-bg{position:absolute;inset:0;background:linear-gradient(145deg,#c8e8f8 0%,#dff2ff 30%,#eef7ff 60%,#f9fbfe 100%);z-index:0;}
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;
+    background:
+      linear-gradient(160deg,
+        rgba(10,40,90,0.62) 0%,
+        rgba(14,77,138,0.48) 30%,
+        rgba(26,111,173,0.30) 60%,
+        rgba(200,232,248,0.55) 100%
+      ),
+      url("https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600&q=80&auto=format&fit=crop") center/cover no-repeat;
+  }
+  /* Warm golden vignette bottom for skyline blend */
+  .hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to top, rgba(200,232,248,0.95) 0%, transparent 45%);
+    z-index:1;
+  }
   .hero-radial{position:absolute;top:-10%;left:-5%;width:70%;height:80%;background:radial-gradient(ellipse at 30% 40%, rgba(26,111,173,0.10) 0%, rgba(26,111,173,0.04) 45%, transparent 70%);z-index:1;pointer-events:none;}
   .hero-radial2{position:absolute;top:10%;right:-8%;width:50%;height:60%;background:radial-gradient(ellipse at 70% 30%, rgba(240,165,0,0.07) 0%, transparent 65%);z-index:1;pointer-events:none;}
   /* Floating decorative blobs */
@@ -223,7 +239,7 @@ HTML = """<!DOCTYPE html>
   .hshape-6{width:28px;height:28px;border:2px solid rgba(26,111,173,0.12);bottom:25%;right:8%;border-radius:50%;}
   /* Enhanced skyline with fade */
   .hero-skyline{position:absolute;bottom:0;left:0;right:0;height:300px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 300'%3E%3Cdefs%3E%3ClinearGradient id='sg' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2393c8e8' stop-opacity='0.18'/%3E%3Cstop offset='1' stop-color='%2393c8e8' stop-opacity='0.45'/%3E%3C/linearGradient%3E%3ClinearGradient id='sg2' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%23aad4ed' stop-opacity='0.25'/%3E%3Cstop offset='1' stop-color='%23aad4ed' stop-opacity='0.55'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23sg)' d='M0,300 L0,210 L60,210 L60,150 L80,150 L80,100 L100,100 L100,75 L110,75 L110,50 L125,50 L125,25 L140,25 L140,50 L155,50 L155,75 L170,75 L170,100 L190,100 L190,150 L210,150 L210,170 L240,170 L240,120 L260,120 L260,85 L275,85 L275,60 L285,60 L285,38 L295,38 L295,15 L305,15 L305,38 L315,38 L315,60 L325,60 L325,85 L340,85 L340,120 L360,120 L360,170 L400,170 L400,130 L430,130 L430,105 L450,105 L450,78 L470,78 L470,52 L490,52 L490,28 L508,28 L508,12 L516,12 L516,6 L524,6 L524,12 L532,12 L532,28 L552,28 L552,52 L572,52 L572,78 L590,78 L590,105 L612,105 L612,130 L645,130 L645,155 L685,155 L685,118 L718,118 L718,85 L738,85 L738,60 L758,60 L758,36 L768,36 L768,18 L778,18 L778,6 L788,6 L788,18 L798,18 L798,36 L810,36 L810,60 L830,60 L830,85 L852,85 L852,118 L882,118 L882,155 L932,155 L932,130 L972,130 L972,98 L1002,98 L1002,72 L1022,72 L1022,48 L1045,48 L1045,25 L1065,25 L1065,48 L1085,48 L1085,72 L1108,72 L1108,98 L1140,98 L1140,130 L1182,130 L1182,158 L1222,158 L1222,138 L1252,138 L1252,115 L1272,115 L1272,92 L1295,92 L1295,70 L1315,70 L1315,92 L1338,92 L1338,115 L1365,115 L1365,145 L1400,145 L1400,185 L1440,185 L1440,300 Z'/%3E%3Cpath fill='url(%23sg2)' d='M0,300 L0,235 L120,235 L120,200 L155,200 L155,178 L175,178 L175,165 L188,165 L188,152 L200,152 L200,138 L212,138 L212,125 L228,125 L228,112 L242,112 L242,125 L265,125 L265,150 L305,150 L305,165 L345,165 L345,148 L378,148 L378,130 L408,130 L408,112 L438,112 L438,92 L462,92 L462,75 L480,75 L480,60 L498,60 L498,75 L516,75 L516,92 L542,92 L542,112 L568,112 L568,130 L598,130 L598,148 L635,148 L635,165 L680,165 L680,148 L720,148 L720,128 L752,128 L752,108 L782,108 L782,128 L815,128 L815,148 L862,148 L862,165 L918,165 L918,155 L962,155 L962,140 L1002,140 L1002,122 L1042,122 L1042,140 L1082,140 L1082,155 L1135,155 L1135,165 L1185,165 L1185,155 L1225,155 L1225,142 L1258,142 L1258,165 L1302,165 L1302,188 L1440,188 L1440,300 Z'/%3E%3C/svg%3E") bottom/cover no-repeat;z-index:1;mask-image:linear-gradient(to top,rgba(0,0,0,1) 0%,rgba(0,0,0,0.7) 55%,transparent 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,1) 0%,rgba(0,0,0,0.7) 55%,transparent 100%);}
-  .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;max-width:1200px;margin:0 auto;width:100%;}
+  .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 360px;gap:50px;align-items:center;max-width:1200px;margin:0 auto;width:100%;}
   .hero-left{}
   .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(240,165,0,0.12);border:1px solid rgba(240,165,0,0.35);padding:6px 16px;border-radius:50px;font-size:0.78rem;font-weight:600;color:#c07a00;margin-bottom:22px;letter-spacing:.5px;}
   .hero-badge::before{content:"🇦🇪";font-size:1rem;}
@@ -541,7 +557,7 @@ HTML = """<!DOCTYPE html>
 
 <style>
 /* STREAMLIT IFRAME FIX - Force all content visible regardless of GSAP state */
-.hero-h1, .hero-sub, .hero-tagline, .hero-cta-row,
+.hero-h1, .hero-sub, .hero-tagline, .hero-eyebrow, .hero-cta-row,
 .trust-badges, .urgency-bar, .lead-form-wrap,
 .hero-inner, .hero-content, .section-label,
 .section-heading, .benefit-card, .service-card,
@@ -613,12 +629,24 @@ h1, h2, h3, h4, p, button, a, form, input, select {
     <div class="hshape hshape-5"></div>
     <div class="hshape hshape-6"></div>
   </div>
+  <!-- Filipino entrepreneur imagery -->
+  <div class="hero-entrepreneur">
+    <div class="hero-ent-card">
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80&auto=format&fit=crop&crop=face" alt="Filipino entrepreneur in Dubai" class="hero-ent-img"/>
+      <div class="hero-ent-badge">🇵🇭 → 🇦🇪</div>
+    </div>
+    <div class="hero-ent-card hero-ent-card-2">
+      <img src="https://images.unsplash.com/photo-1556157382-97eda2f9e2bf?w=400&q=80&auto=format&fit=crop&crop=face" alt="Business professional" class="hero-ent-img"/>
+      <div class="hero-ent-stat">🚀 100% Owner</div>
+    </div>
+  </div>
   <div class="hero-skyline"></div>
   <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-badge">🇦🇪 UAE Freezone Specialists</div>
-      <h1 class="hero-h1">Start Your Dubai Business with <span>100% Ownership</span> — Fast, Simple & Stress-Free</h1>
-      <p class="hero-sub">Fast, affordable, and hassle-free company formation in the UAE. Your gateway to the world's most dynamic business hub.</p>
+      <h1 class="hero-h1">Your Dubai Dream Business<br/><span>Starts Here — 100% Yours.</span></h1>
+      <p class="hero-eyebrow">Trusted by 1,000+ Filipino entrepreneurs across the UAE 🇵🇭</p>
+      <p class="hero-sub">From OFW to CEO. We handle all the paperwork, visas, and compliance — so you can focus on what you do best. <strong>Setup in as little as 48 hours.</strong></p>
       <div class="hero-btns">
         <a href="#lead-form" class="btn-primary">✨ Get Your Free Business Setup Plan</a>
         <a href="#lead-form" class="btn-secondary">🚀 Start Your Dubai Business Today</a>
