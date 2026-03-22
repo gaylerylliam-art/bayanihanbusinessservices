@@ -1,5 +1,5 @@
 import streamlit as st
-import pathlib
+import os
 
 st.set_page_config(
     page_title="Bayanihan Emirates Business Services",
@@ -18,11 +18,22 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-html_path = pathlib.Path(__file__).resolve().parent / "index.html"
+# Try every possible location Streamlit Cloud might use
+possible_paths = [
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html"),
+    "/mount/src/bayanihanbusinessservices/index.html",
+    os.path.join(os.getcwd(), "index.html"),
+    "index.html",
+]
 
-if html_path.is_file():
-    html_content = html_path.read_text(encoding="utf-8")
+html_content = None
+for path in possible_paths:
+    if os.path.isfile(path):
+        with open(path, "r", encoding="utf-8") as f:
+            html_content = f.read()
+        break
+
+if html_content:
     st.components.v1.html(html_content, height=9000, scrolling=True)
 else:
-    st.error("index.html not found.")
-    st.write([str(p) for p in pathlib.Path(__file__).resolve().parent.iterdir()])
+    st.error("Could not load index.html")
