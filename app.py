@@ -12,10 +12,7 @@ st.markdown("""
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
         header {visibility: hidden;}
-        .block-container {
-            padding: 0 !important;
-            max-width: 100% !important;
-        }
+        .block-container { padding: 0 !important; max-width: 100% !important; }
         [data-testid="stAppViewContainer"] { padding: 0 !important; }
         [data-testid="stVerticalBlock"] { gap: 0 !important; padding: 0 !important; }
     </style>
@@ -51,43 +48,62 @@ HTML = """<!DOCTYPE html>
   /* ── STICKY NAV ── */
   .nav{
     position: sticky; top: 0; z-index: 200;
-    background: rgba(255,255,255,0.96);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(26,111,173,0.09);
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1.5px solid rgba(26,111,173,0.11);
+    box-shadow: 0 2px 12px rgba(14,77,138,0.07), 0 1px 0 rgba(26,111,173,0.06);
     padding: 0 5%;
     transition: box-shadow 0.3s ease, padding 0.3s ease, background 0.3s ease;
   }
   .nav.scrolled{
-    box-shadow: 0 4px 28px rgba(14,77,138,0.11);
-    background: rgba(255,255,255,0.99);
+    box-shadow: 0 6px 32px rgba(14,77,138,0.13), 0 1px 0 rgba(26,111,173,0.08);
+    background: rgba(255,255,255,1);
   }
   .nav-inner{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 76px;
+    height: 82px;
     max-width: 1200px;
     margin: 0 auto;
     gap: 24px;
     transition: height 0.3s ease;
   }
-  .nav.scrolled .nav-inner{ height: 64px; }
+  .nav.scrolled .nav-inner{ height: 74px; }
 
   /* Logo */
   .nav-logo-wrap{
     flex-shrink: 0;
     display: flex;
     align-items: center;
+    padding-left: 2px;
+  }
+  .nav-logo-inner{
+    display: flex;
+    align-items: center;
+    padding: 4px 10px 4px 4px;
+    background: rgba(255,255,255,0.70);
+    border-radius: 12px;
+    border: 1px solid rgba(26,111,173,0.08);
+    box-shadow: 0 2px 10px rgba(14,77,138,0.06);
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+  }
+  .nav-logo-inner:hover{
+    transform: scale(1.025);
+    box-shadow: 0 4px 16px rgba(14,77,138,0.12);
   }
   .nav-logo{
-    height: 58px;
+    height: 70px;
     width: auto;
     object-fit: contain;
-    transition: height 0.3s ease, opacity 0.2s ease;
+    transition: height 0.3s ease;
     display: block;
+    filter: drop-shadow(0 1px 2px rgba(14,77,138,0.07));
   }
-  .nav.scrolled .nav-logo{ height: 48px; }
+  .nav.scrolled .nav-logo{ height: 56px; }
+  @media(max-width:900px){ .nav-logo{ height: 56px; } }
+  @media(max-width:480px){ .nav-logo{ height: 46px; } }
 
   /* Center nav links */
   .nav-links-wrap{
@@ -140,25 +156,36 @@ HTML = """<!DOCTYPE html>
     background: linear-gradient(135deg, var(--blue), var(--blue2));
     color: #fff;
     border: none;
-    padding: 11px 22px;
+    padding: 9px 18px;
     border-radius: 50px;
-    font-size: 0.875rem;
+    font-size: 0.83rem;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease,
+                background 0.3s ease, padding 0.3s ease,
+                font-size 0.3s ease, opacity 0.3s ease;
     text-decoration: none;
     white-space: nowrap;
     letter-spacing: 0.2px;
     display: inline-flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
+    opacity: 1;
+    visibility: visible;
   }
-  .nav-cta::before{ content: '💬'; font-size: 0.9rem; }
+  .nav-cta::before{ content: '💬'; font-size: 0.85rem; transition: font-size 0.3s ease; }
   .nav-cta:hover{
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(14,77,138,0.35);
+    box-shadow: 0 8px 22px rgba(14,77,138,0.32);
     background: linear-gradient(135deg, #1d7dc5, var(--blue2));
   }
+  /* Scrolled state — shrinks gracefully, stays fully visible */
+  .nav.scrolled .nav-cta{
+    padding: 7px 14px;
+    font-size: 0.77rem;
+    box-shadow: 0 2px 10px rgba(14,77,138,0.18);
+  }
+  .nav.scrolled .nav-cta::before{ font-size: 0.78rem; }
 
   /* Hamburger */
   .hamburger{ display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border-radius: 8px; transition: background 0.2s; }
@@ -208,17 +235,17 @@ HTML = """<!DOCTYPE html>
     position:absolute;inset:0;z-index:0;
     background:
       linear-gradient(160deg,
-        rgba(10,40,90,0.62) 0%,
-        rgba(14,77,138,0.48) 30%,
-        rgba(26,111,173,0.30) 60%,
-        rgba(200,232,248,0.55) 100%
+        rgba(5,20,55,0.68) 0%,
+        rgba(14,60,120,0.52) 30%,
+        rgba(20,80,150,0.35) 60%,
+        rgba(180,220,248,0.45) 100%
       ),
-      url("https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600&q=80&auto=format&fit=crop") center/cover no-repeat;
+      url("https://i.imgur.com/V5Jl23n.jpg") center/cover no-repeat;
   }
-  /* Warm golden vignette bottom for skyline blend */
+  /* Bottom fade to blend with content below */
   .hero-bg::after{
     content:'';position:absolute;inset:0;
-    background:linear-gradient(to top, rgba(200,232,248,0.95) 0%, transparent 45%);
+    background:linear-gradient(to top, rgba(190,228,248,0.92) 0%, transparent 42%);
     z-index:1;
   }
   .hero-radial{position:absolute;top:-10%;left:-5%;width:70%;height:80%;background:radial-gradient(ellipse at 30% 40%, rgba(26,111,173,0.10) 0%, rgba(26,111,173,0.04) 45%, transparent 70%);z-index:1;pointer-events:none;}
@@ -239,7 +266,7 @@ HTML = """<!DOCTYPE html>
   .hshape-6{width:28px;height:28px;border:2px solid rgba(26,111,173,0.12);bottom:25%;right:8%;border-radius:50%;}
   /* Enhanced skyline with fade */
   .hero-skyline{position:absolute;bottom:0;left:0;right:0;height:300px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 300'%3E%3Cdefs%3E%3ClinearGradient id='sg' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2393c8e8' stop-opacity='0.18'/%3E%3Cstop offset='1' stop-color='%2393c8e8' stop-opacity='0.45'/%3E%3C/linearGradient%3E%3ClinearGradient id='sg2' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%23aad4ed' stop-opacity='0.25'/%3E%3Cstop offset='1' stop-color='%23aad4ed' stop-opacity='0.55'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23sg)' d='M0,300 L0,210 L60,210 L60,150 L80,150 L80,100 L100,100 L100,75 L110,75 L110,50 L125,50 L125,25 L140,25 L140,50 L155,50 L155,75 L170,75 L170,100 L190,100 L190,150 L210,150 L210,170 L240,170 L240,120 L260,120 L260,85 L275,85 L275,60 L285,60 L285,38 L295,38 L295,15 L305,15 L305,38 L315,38 L315,60 L325,60 L325,85 L340,85 L340,120 L360,120 L360,170 L400,170 L400,130 L430,130 L430,105 L450,105 L450,78 L470,78 L470,52 L490,52 L490,28 L508,28 L508,12 L516,12 L516,6 L524,6 L524,12 L532,12 L532,28 L552,28 L552,52 L572,52 L572,78 L590,78 L590,105 L612,105 L612,130 L645,130 L645,155 L685,155 L685,118 L718,118 L718,85 L738,85 L738,60 L758,60 L758,36 L768,36 L768,18 L778,18 L778,6 L788,6 L788,18 L798,18 L798,36 L810,36 L810,60 L830,60 L830,85 L852,85 L852,118 L882,118 L882,155 L932,155 L932,130 L972,130 L972,98 L1002,98 L1002,72 L1022,72 L1022,48 L1045,48 L1045,25 L1065,25 L1065,48 L1085,48 L1085,72 L1108,72 L1108,98 L1140,98 L1140,130 L1182,130 L1182,158 L1222,158 L1222,138 L1252,138 L1252,115 L1272,115 L1272,92 L1295,92 L1295,70 L1315,70 L1315,92 L1338,92 L1338,115 L1365,115 L1365,145 L1400,145 L1400,185 L1440,185 L1440,300 Z'/%3E%3Cpath fill='url(%23sg2)' d='M0,300 L0,235 L120,235 L120,200 L155,200 L155,178 L175,178 L175,165 L188,165 L188,152 L200,152 L200,138 L212,138 L212,125 L228,125 L228,112 L242,112 L242,125 L265,125 L265,150 L305,150 L305,165 L345,165 L345,148 L378,148 L378,130 L408,130 L408,112 L438,112 L438,92 L462,92 L462,75 L480,75 L480,60 L498,60 L498,75 L516,75 L516,92 L542,92 L542,112 L568,112 L568,130 L598,130 L598,148 L635,148 L635,165 L680,165 L680,148 L720,148 L720,128 L752,128 L752,108 L782,108 L782,128 L815,128 L815,148 L862,148 L862,165 L918,165 L918,155 L962,155 L962,140 L1002,140 L1002,122 L1042,122 L1042,140 L1082,140 L1082,155 L1135,155 L1135,165 L1185,165 L1185,155 L1225,155 L1225,142 L1258,142 L1258,165 L1302,165 L1302,188 L1440,188 L1440,300 Z'/%3E%3C/svg%3E") bottom/cover no-repeat;z-index:1;mask-image:linear-gradient(to top,rgba(0,0,0,1) 0%,rgba(0,0,0,0.7) 55%,transparent 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,1) 0%,rgba(0,0,0,0.7) 55%,transparent 100%);}
-  .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 360px;gap:50px;align-items:center;max-width:1200px;margin:0 auto;width:100%;}
+  .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:380px 1fr 340px;gap:40px;align-items:center;max-width:1280px;margin:0 auto;width:100%;}
   .hero-left{}
   .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(240,165,0,0.12);border:1px solid rgba(240,165,0,0.35);padding:6px 16px;border-radius:50px;font-size:0.78rem;font-weight:600;color:#c07a00;margin-bottom:22px;letter-spacing:.5px;}
   .hero-badge::before{content:"🇦🇪";font-size:1rem;}
@@ -557,7 +584,7 @@ HTML = """<!DOCTYPE html>
 
 <style>
 /* STREAMLIT IFRAME FIX - Force all content visible regardless of GSAP state */
-.hero-h1, .hero-sub, .hero-tagline, .hero-eyebrow, .hero-cta-row,
+.hero-h1, .hero-sub, .hero-tagline, .hero-eyebrow, .hero-trust-row, .ht-item, .hero-cta-row, .trust-strip, .ts-item, .hero-visual, .hv-stat, .hv-portrait, .form-trust-list,
 .trust-badges, .urgency-bar, .lead-form-wrap,
 .hero-inner, .hero-content, .section-label,
 .section-heading, .benefit-card, .service-card,
@@ -591,9 +618,9 @@ h1, h2, h3, h4, p, button, a, form, input, select {
     </div>
     <div class="nav-links-wrap">
       <ul class="nav-links">
-        <li><a href="#freezone">Why Freezone</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#pricing">Packages</a></li>
+        <li><a href="#process">How It Works</a></li>
+        <li><a href="#why-us">Why Us</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#lead-form">Contact</a></li>
       </ul>
@@ -605,9 +632,9 @@ h1, h2, h3, h4, p, button, a, form, input, select {
   </div>
 </nav>
 <div class="nav-mobile-menu" id="mobile-menu">
-  <a href="#freezone">Why Freezone</a>
   <a href="#services">Services</a>
-  <a href="#pricing">Packages</a>
+  <a href="#process">How It Works</a>
+  <a href="#why-us">Why Us</a>
   <a href="#faq">FAQ</a>
   <a href="#lead-form">Contact</a>
   <a href="#lead-form" class="nav-mobile-cta">💬 Talk to a Setup Expert</a>
@@ -642,15 +669,122 @@ h1, h2, h3, h4, p, button, a, form, input, select {
   </div>
   <div class="hero-skyline"></div>
   <div class="hero-inner">
+    <!-- ★ HERO VISUAL COLUMN ★ -->
+    <div class="hero-visual">
+
+      <!-- Main entrepreneur portrait -->
+      <div class="hv-portrait">
+        <img
+          src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=480&q=85&auto=format&fit=crop&crop=faces,top"
+          alt="Filipino entrepreneur in Dubai"
+        />
+        <div class="hv-flag">🇵🇭 OFW → 🇦🇪 CEO</div>
+      </div>
+
+      <!-- Floating stat cards -->
+      <div class="hv-stats">
+        <div class="hv-stat">
+          <span class="hv-stat-icon">🏢</span>
+          <div class="hv-stat-text">
+            <span class="hv-stat-num">1,000+</span>
+            <span class="hv-stat-lbl">Businesses Registered</span>
+          </div>
+        </div>
+        <div class="hv-stat">
+          <span class="hv-stat-icon">⚡</span>
+          <div class="hv-stat-text">
+            <span class="hv-stat-num">48 hrs</span>
+            <span class="hv-stat-lbl">Average Setup Time</span>
+          </div>
+        </div>
+        <div class="hv-stat">
+          <span class="hv-stat-icon">💯</span>
+          <div class="hv-stat-text">
+            <span class="hv-stat-num">100%</span>
+            <span class="hv-stat-lbl">Full Ownership</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dubai skyline SVG -->
+      <svg class="hv-skyline" viewBox="0 0 380 80" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sky-g" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#f0c040" stop-opacity="0.9"/>
+            <stop offset="1" stop-color="#f0c040" stop-opacity="0.3"/>
+          </linearGradient>
+        </defs>
+        <!-- Dubai Burj Khalifa + skyline silhouette -->
+        <path fill="url(#sky-g)" d="
+          M0,80 L0,60 L20,60 L20,50 L30,50 L30,42 L34,42 L34,35
+          L36,35 L36,28 L38,28 L38,18 L39,18 L39,8 L40,8 L40,4
+          L41,4 L41,8 L42,8 L42,18 L43,18 L43,28 L44,28 L44,35
+          L46,35 L46,42 L50,42 L50,50 L60,50 L60,55 L80,55
+          L80,48 L90,48 L90,40 L95,40 L95,32 L100,32 L100,40
+          L110,40 L110,48 L120,48 L120,55 L140,55 L140,45
+          L150,45 L150,36 L155,36 L155,28 L160,28 L160,36
+          L165,36 L165,45 L180,45 L180,52 L200,52 L200,42
+          L210,42 L210,32 L215,32 L215,22 L218,22 L218,14
+          L220,14 L220,8 L221,8 L221,4 L222,4 L222,8
+          L223,8 L223,14 L225,14 L225,22 L228,22 L228,32
+          L232,32 L232,42 L240,42 L240,52 L260,52 L260,44
+          L270,44 L270,36 L275,36 L275,28 L278,28 L278,36
+          L282,36 L282,44 L290,44 L290,52 L310,52 L310,46
+          L320,46 L320,38 L326,38 L326,46 L336,46 L336,52
+          L355,52 L355,58 L370,58 L370,65 L380,65 L380,80 Z
+        "/>
+        <!-- Windows / lights -->
+        <rect x="39.5" y="10" width="1" height="2" fill="rgba(255,255,255,0.6)" rx="0.5"/>
+        <rect x="39.5" y="15" width="1" height="2" fill="rgba(255,255,255,0.5)" rx="0.5"/>
+        <rect x="220.5" y="10" width="1" height="2" fill="rgba(255,255,255,0.6)" rx="0.5"/>
+        <rect x="220.5" y="16" width="1" height="2" fill="rgba(255,255,255,0.4)" rx="0.5"/>
+      </svg>
+    </div>
+
     <div class="hero-left">
       <div class="hero-badge">🇦🇪 UAE Freezone Specialists</div>
-      <h1 class="hero-h1">Your Dubai Dream Business<br/><span>Starts Here — 100% Yours.</span></h1>
+      <h1 class="hero-h1">Your Dubai UAE Business<br/><span>Starts Here — 100% Yours.</span></h1>
       <p class="hero-eyebrow">Trusted by 1,000+ Filipino entrepreneurs across the UAE 🇵🇭</p>
       <p class="hero-sub">From OFW to CEO. We handle all the paperwork, visas, and compliance — so you can focus on what you do best. <strong>Setup in as little as 48 hours.</strong></p>
       <div class="hero-btns">
         <a href="#lead-form" class="btn-primary">✨ Get Your Free Business Setup Plan</a>
         <a href="#lead-form" class="btn-secondary">🚀 Start Your Dubai Business Today</a>
       </div>
+      <!-- ★ TRUST SIGNALS — immediately under CTA ★ -->
+      <div class="hero-trust-row">
+        <div class="ht-item">
+          <span class="ht-icon">⭐</span>
+          <div class="ht-text">
+            <strong class="ht-num">1,000+</strong>
+            <span class="ht-label">Businesses Setup</span>
+          </div>
+        </div>
+        <div class="ht-divider"></div>
+        <div class="ht-item">
+          <span class="ht-icon">⏱</span>
+          <div class="ht-text">
+            <strong class="ht-num">24–48 hrs</strong>
+            <span class="ht-label">Fast Setup</span>
+          </div>
+        </div>
+        <div class="ht-divider"></div>
+        <div class="ht-item">
+          <span class="ht-icon">🇦🇪</span>
+          <div class="ht-text">
+            <strong class="ht-num">UAE</strong>
+            <span class="ht-label">Licensed Experts</span>
+          </div>
+        </div>
+        <div class="ht-divider"></div>
+        <div class="ht-item">
+          <span class="ht-icon">👨‍💼</span>
+          <div class="ht-text">
+            <strong class="ht-num">1-on-1</strong>
+            <span class="ht-label">Dedicated Consultant</span>
+          </div>
+        </div>
+      </div>
+
       <div class="urgency-bar">
         <div class="urgency-pulse"></div>
         <div class="urgency-text">
@@ -667,143 +801,72 @@ h1, h2, h3, h4, p, button, a, form, input, select {
           </div>
         </div>
       </div>
-      <div class="hero-trust">
-        <div class="trust-badge"><span class="tb-icon">✅</span><span>1,000+ Businesses Setup</span></div>
-        <div class="trust-badge"><span class="tb-icon">⚡</span><span>24–48 Hour Setup</span></div>
-        <div class="trust-badge"><span class="tb-icon">🇦🇪</span><span>UAE Experts</span></div>
-        <div class="trust-badge"><span class="tb-icon">🤝</span><span>Dedicated Consultant</span></div>
-      </div>
+
       <div class="hero-tagline">
         🇵🇭 "From dreams to success, we're with you — because every Filipino deserves a brighter future."
       </div>
     </div>
     <div class="hero-right" id="lead-form">
       <div class="lead-form-card">
-        <h3>Get Your Free Business Setup Quote</h3>
-        <p>Fill in the form and our consultant will contact you within 1 hour.</p>
+        <h3>Get Your Free Consultation</h3>
+        <p>Fill in 3 quick fields — we'll WhatsApp you within 1 hour. 🇵🇭</p>
         <div class="form-field">
-          <label>Full Name</label>
+          <label>Your Name</label>
           <input type="text" placeholder="e.g. Maria Santos"/>
         </div>
         <div class="form-field">
-          <label>Email Address</label>
-          <input type="email" placeholder="maria@email.com"/>
-        </div>
-        <div class="form-field">
-          <label>WhatsApp / Phone</label>
+          <label>WhatsApp Number</label>
           <input type="tel" placeholder="+971 50 123 4567"/>
         </div>
         <div class="form-field">
-          <label>Business Activity</label>
+          <label>Business Type</label>
           <select>
-            <option value="" disabled selected>Select your business type</option>
+            <option value="" disabled selected>What do you want to setup?</option>
             <option>Trading & General Trading</option>
-            <option>Consultancy & Professional Services</option>
+            <option>Consultancy & Services</option>
             <option>E-commerce & Retail</option>
-            <option>Technology & IT Services</option>
+            <option>Technology & IT</option>
             <option>Food & Beverage</option>
-            <option>Media & Marketing</option>
-            <option>Real Estate</option>
-            <option>Healthcare & Beauty</option>
+            <option>Freelance / Sole Proprietor</option>
             <option>Other</option>
           </select>
         </div>
-        <button class="form-cta" onclick="submitForm()">🎯 Get a Free Quote Now</button>
-        <p class="form-note">🔒 Your information is 100% confidential. No spam, ever.</p>
+        <ul class="form-trust-list">
+          <li><span class="ftl-check">✅</span> Free consultation — no commitment</li>
+          <li><span class="ftl-check">✅</span> No spam, ever</li>
+          <li><span class="ftl-check">✅</span> Response within 1 hour via WhatsApp</li>
+        </ul>
+        <button class="form-cta" onclick="submitForm()">👉 Get My Free Setup Quote</button>
+        <p class="form-note">🔒 Your details are 100% confidential &amp; secure.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHO WE HELP -->
-<section class="who-we-help">
-  <div class="section-inner">
-    <div class="wwh-inner">
-      <div class="wwh-left">
-        <div class="section-label">Who We Help</div>
-        <h2 class="section-h2">Built for <span>Filipino Entrepreneurs</span> Ready to Take the Leap</h2>
-        <p class="section-p">Whether you're an OFW, a freelancer, or an ambitious business owner — we understand your journey better than anyone. Bayanihan Emirates was built for you.</p>
-        <a href="#lead-form" class="btn-primary" style="margin-top:28px;display:inline-flex;">✨ Get Your Free Business Setup Plan</a>
-      </div>
-      <div class="wwh-right">
-        <div class="wwh-list">
-          <div class="wwh-item">
-            <div class="wwh-icon-wrap">🚀</div>
-            <div class="wwh-content">
-              <h4>Start a Business in Dubai</h4>
-              <p>First-time entrepreneurs and OFWs ready to launch their own company with 100% ownership in a world-class freezone.</p>
-            </div>
-          </div>
-          <div class="wwh-item">
-            <div class="wwh-icon-wrap">🌍</div>
-            <div class="wwh-content">
-              <h4>Expand Internationally</h4>
-              <p>Filipino business owners looking to access global markets and grow their brand beyond the Philippines using Dubai as their hub.</p>
-            </div>
-          </div>
-          <div class="wwh-item">
-            <div class="wwh-icon-wrap">💎</div>
-            <div class="wwh-content">
-              <h4>Build Long-Term Financial Stability</h4>
-              <p>Professionals and investors who want a UAE residency, tax advantages, and a sustainable income outside of traditional employment.</p>
-            </div>
-          </div>
-          <div class="wwh-item">
-            <div class="wwh-icon-wrap">💼</div>
-            <div class="wwh-content">
-              <h4>Freelancers Going Independent</h4>
-              <p>Skilled Filipinos in tech, marketing, design, and consulting who want to legalize their work and invoice global clients professionally.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- TRUST STRIP -->
+<section class="trust-strip">
+  <div class="trust-strip-inner">
+    <div class="ts-item">
+      <span class="ts-num">1,000<span class="ts-plus">+</span></span>
+      <span class="ts-label">Businesses Setup</span>
+    </div>
+    <div class="ts-div"></div>
+    <div class="ts-item">
+      <span class="ts-num">48<span class="ts-plus">hrs</span></span>
+      <span class="ts-label">Average Setup Time</span>
+    </div>
+    <div class="ts-div"></div>
+    <div class="ts-item">
+      <span class="ts-num">100<span class="ts-plus">%</span></span>
+      <span class="ts-label">Ownership Guaranteed</span>
+    </div>
+    <div class="ts-div"></div>
+    <div class="ts-item">
+      <span class="ts-num">5<span class="ts-plus">★</span></span>
+      <span class="ts-label">Client Satisfaction</span>
     </div>
   </div>
 </section>
-
-<!-- WHY DUBAI FREEZONE -->
-<section class="freezone" id="freezone">
-  <div class="section-inner">
-    <div class="section-header center">
-      <div class="section-label">Why Freezone?</div>
-      <h2 class="section-h2">The Smartest Way to Do <span>Business in Dubai</span></h2>
-      <p class="section-p">Dubai Freezones offer unmatched advantages for entrepreneurs and investors from around the world.</p>
-    </div>
-    <div class="benefits-grid">
-      <div class="benefit-card">
-        <div class="benefit-icon">👑</div>
-        <h4>100% Foreign Ownership</h4>
-        <p>Retain full control of your company with no requirement for a local UAE partner or sponsor.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon">💰</div>
-        <h4>Tax-Free Income</h4>
-        <p>Enjoy 0% personal income tax and 0% corporate tax benefits available in UAE freezones.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon">🌍</div>
-        <h4>Full Profit Repatriation</h4>
-        <p>Transfer 100% of your profits and capital back home with zero restrictions or currency controls.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon">⚡</div>
-        <h4>Quick Business Setup</h4>
-        <p>Get your business license issued in as little as 24–48 hours with streamlined digital processes.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon">🤝</div>
-        <h4>No Local Sponsor Required</h4>
-        <p>Operate independently without the need for a UAE national partner or service agent.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon">🛂</div>
-        <h4>Easy Visa Process</h4>
-        <p>Apply for UAE residency visas for yourself, your family, and your employees with ease.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- SERVICES -->
 <section id="services">
   <div class="section-inner">
@@ -854,7 +917,7 @@ h1, h2, h3, h4, p, button, a, form, input, select {
 </section>
 
 <!-- 3-STEP PROCESS -->
-<section class="process">
+<section class="process" id="process">
   <div class="section-inner">
     <div class="section-header center">
       <div class="section-label">How It Works</div>
@@ -881,66 +944,8 @@ h1, h2, h3, h4, p, button, a, form, input, select {
   </div>
 </section>
 
-<!-- PRICING -->
-<section id="pricing">
-  <div class="section-inner">
-    <div class="section-header center">
-      <div class="section-label">Packages & Pricing</div>
-      <h2 class="section-h2">Transparent Pricing, <span>No Hidden Fees</span></h2>
-      <p class="section-p">Choose the package that fits your business needs and budget. All packages include government fees and our expert guidance.</p>
-    </div>
-    <div class="pricing-grid">
-      <div class="price-card">
-        <div class="price-tier">Starter</div>
-        <div class="price-name">Solo Starter</div>
-        <div class="price-amount">AED 5,750 <span>/ year</span></div>
-        <p class="price-desc">Perfect for freelancers & solo entrepreneurs starting their UAE journey.</p>
-        <ul class="price-features">
-          <li>1 Trade License Activity</li>
-          <li>1 Visa Allocation</li>
-          <li>Flexi Desk Included</li>
-          <li>Company Stamp & MOA</li>
-          <li>E-Channel Registration</li>
-          <li>1 Year License</li>
-        </ul>
-        <button class="price-btn" onclick="scrollToForm()">Get Started</button>
-      </div>
-      <div class="price-card featured">
-        <div class="price-tier">Standard</div>
-        <div class="price-name">Business Pro</div>
-        <div class="price-amount">AED 12,500 <span>/ year</span></div>
-        <p class="price-desc">Ideal for small teams and growing businesses with visa requirements.</p>
-        <ul class="price-features">
-          <li>3 Trade License Activities</li>
-          <li>3 Visa Allocations</li>
-          <li>Shared Office Space</li>
-          <li>Bank Account Assistance</li>
-          <li>Company Stamp & MOA</li>
-          <li>PRO Services Included</li>
-        </ul>
-        <button class="price-btn" onclick="scrollToForm()">Get Started</button>
-      </div>
-      <div class="price-card">
-        <div class="price-tier">Premium</div>
-        <div class="price-name">Enterprise Plus</div>
-        <div class="price-amount">AED 22,000 <span>/ year</span></div>
-        <p class="price-desc">Full-scale setup for businesses with larger teams and operations.</p>
-        <ul class="price-features">
-          <li>Unlimited License Activities</li>
-          <li>6 Visa Allocations</li>
-          <li>Dedicated Private Office</li>
-          <li>Priority Bank Assistance</li>
-          <li>Full PRO Services</li>
-          <li>Dedicated Account Manager</li>
-        </ul>
-        <button class="price-btn" onclick="scrollToForm()">Get Started</button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- WHY CHOOSE US -->
-<section class="why-us">
+<section class="why-us" id="why-us">
   <div class="section-inner">
     <div class="section-header center">
       <div class="section-label">Why Choose Us</div>
@@ -1144,6 +1149,15 @@ h1, h2, h3, h4, p, button, a, form, input, select {
     </div>
   </div>
 </footer>
+
+
+<!-- STICKY MOBILE CTA -->
+<div class="mobile-sticky-cta" id="mobile-sticky-cta">
+  <a href="#lead-form" class="mobile-sticky-btn" onclick="document.getElementById('mobile-sticky-cta').style.display='none'">
+    💬 Get Free Consultation
+  </a>
+  <button class="mobile-sticky-close" onclick="this.parentElement.style.display='none'" aria-label="Close">✕</button>
+</div>
 
 <!-- WHATSAPP FLOAT -->
 <a href="https://wa.me/971501234567" class="wa-float" target="_blank" title="Chat with a Consultant on WhatsApp">
