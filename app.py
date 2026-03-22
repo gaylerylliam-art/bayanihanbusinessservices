@@ -7,29 +7,17 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Hide ALL Streamlit chrome so only the landing page shows
 st.markdown("""
     <style>
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
         header {visibility: hidden;}
         .block-container {
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+            padding: 0 !important;
             max-width: 100% !important;
         }
-        [data-testid="stAppViewContainer"] {
-            padding: 0 !important;
-        }
-        [data-testid="stVerticalBlock"] {
-            gap: 0 !important;
-            padding: 0 !important;
-        }
-        iframe {
-            display: block;
-        }
+        [data-testid="stAppViewContainer"] { padding: 0 !important; }
+        [data-testid="stVerticalBlock"] { gap: 0 !important; padding: 0 !important; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -215,7 +203,7 @@ HTML = """<!DOCTYPE html>
   .nav-mobile-cta:hover{ background: linear-gradient(135deg,#1d7dc5,var(--blue2)); opacity: 0.95; }
 
   /* ── HERO ── */
-  .hero{position:relative;overflow:hidden;padding:90px 5% 70px;min-height:92vh;display:flex;align-items:center;}
+  .hero{position:relative;overflow:hidden;padding:90px 5% 70px;min-height:auto;display:flex;align-items:center;}
   .hero-bg{position:absolute;inset:0;background:linear-gradient(145deg,#c8e8f8 0%,#dff2ff 30%,#eef7ff 60%,#f9fbfe 100%);z-index:0;}
   .hero-radial{position:absolute;top:-10%;left:-5%;width:70%;height:80%;background:radial-gradient(ellipse at 30% 40%, rgba(26,111,173,0.10) 0%, rgba(26,111,173,0.04) 45%, transparent 70%);z-index:1;pointer-events:none;}
   .hero-radial2{position:absolute;top:10%;right:-8%;width:50%;height:60%;background:radial-gradient(ellipse at 70% 30%, rgba(240,165,0,0.07) 0%, transparent 65%);z-index:1;pointer-events:none;}
@@ -549,6 +537,30 @@ HTML = """<!DOCTYPE html>
     .hero-btns{flex-direction:column;}
     .final-cta-btns{flex-direction:column;align-items:center;}
   }
+</style>
+
+<style>
+/* STREAMLIT IFRAME FIX - Force all content visible regardless of GSAP state */
+.hero-h1, .hero-sub, .hero-tagline, .hero-cta-row,
+.trust-badges, .urgency-bar, .lead-form-wrap,
+.hero-inner, .hero-content, .section-label,
+.section-heading, .benefit-card, .service-card,
+.step, .price-card, .why-card, .testimonial-card,
+.faq-item, .wwh-item, .wwh-left, .nav, .nav-inner,
+.nav-logo-wrap, .nav-logo-inner, .nav-links-wrap,
+.nav-right, .cta-section, .footer,
+[class*="hero-"], [class*="section-"],
+[class*="card"], [class*="step"],
+h1, h2, h3, h4, p, button, a, form, input, select {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
+/* Keep hero min-height reasonable */
+.hero {
+    min-height: auto !important;
+    padding: 60px 5% 50px !important;
+}
 </style>
 </head>
 <body>
@@ -1183,9 +1195,9 @@ HTML = """<!DOCTYPE html>
 
   /* ── WAIT FOR GSAP ── */
   window.addEventListener('load', () => {
-    gsap.registerPlugin(ScrollTrigger, TextPlugin);
+    gsap.registerPlugin(ScrollTrigger, TextPlugin); if(true){ console.log("GSAP disabled for iframe"); } else {
 
-    /* ── 1. NAV: slide down on load ── */
+    /* GSAP animations disabled for Streamlit iframe compatibility */ return; /* ── 1. NAV: slide down on load ── */
     gsap.from('.nav', {
       yPercent: -100, opacity: 0, duration: 0.7, ease: 'power3.out', delay: 0.1
     });
@@ -1432,5 +1444,4 @@ HTML = """<!DOCTYPE html>
     const bar = document.createElement('div');
     bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#1a6fad,#f0a500);"""
 
-# Calculate approximate page height to avoid scrollbar issues
 st.components.v1.html(HTML, height=12000, scrolling=True)
